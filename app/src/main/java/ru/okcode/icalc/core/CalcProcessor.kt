@@ -1,10 +1,11 @@
 package ru.okcode.icalc.core
 
 import ru.okcode.icalc.command.Command
+import ru.okcode.icalc.command.operator.Operator
 
 interface CalcProcessor {
 
-    fun handleCommand(command: Command)
+    fun handleOperator(operator: Operator)
 
-    fun handleOperand(number: Float)
+    fun handleNumber(number: Double)
 }

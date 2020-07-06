@@ -12,5 +12,5 @@ abstract class CoreModule {
     abstract fun calcProcessor(processor: CalcProcessorImpl): CalcProcessor
 
     @Binds
-    abstract fun numCreator(creator: NumberCreatorImpl): NumberCreator
+    abstract fun displayProcessor(processor: DisplayProcessorImpl): DisplayProcessor
 }

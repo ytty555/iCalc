@@ -6,6 +6,6 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [CoreModule::class])
 interface CoreFactory {
-    fun processor(): CalcProcessor
-    fun numberCreator(): NumberCreator
+    fun getCalcProcessor(): CalcProcessor
+    fun getDisplayProcessor(): DisplayProcessor
 }

@@ -1,8 +1,9 @@
 package ru.okcode.icalc.command.operand
 
-class Digit1 : Operand {
+class Digit0 : Operand {
 
     override fun getResultNumber(oldNumber: Double): Double {
-        return oldNumber * 10 + 1.0;
+        return oldNumber * 10.0;
     }
+
 }

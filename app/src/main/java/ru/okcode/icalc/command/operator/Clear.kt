@@ -1,16 +1,18 @@
 package ru.okcode.icalc.command.operator
 
+import java.lang.Exception
 import javax.inject.Inject
 
-class Plus @Inject constructor() : Operator {
+class Clear @Inject constructor() : Operator {
 
-    private val rang = 1
+    private val rang = 0
 
     override fun getRang(): Int {
         return rang
     }
 
     override fun calc(a: Double, b: Double): Double {
-        return a.plus(b)
+        // TODO TEST
+        throw Exception("Method not allowed for this type!")
     }
 }

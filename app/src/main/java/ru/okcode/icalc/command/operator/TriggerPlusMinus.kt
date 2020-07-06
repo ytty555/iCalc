@@ -2,15 +2,16 @@ package ru.okcode.icalc.command.operator
 
 import javax.inject.Inject
 
-class Plus @Inject constructor() : Operator {
+class TriggerPlusMinus @Inject constructor() : Operator {
 
-    private val rang = 1
+    private val rang = 0
 
     override fun getRang(): Int {
         return rang
     }
 
     override fun calc(a: Double, b: Double): Double {
-        return a.plus(b)
+        // TODO TEST
+        return a.times(-1)
     }
 }

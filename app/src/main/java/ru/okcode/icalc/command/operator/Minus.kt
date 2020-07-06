@@ -2,7 +2,7 @@ package ru.okcode.icalc.command.operator
 
 import javax.inject.Inject
 
-class Plus @Inject constructor() : Operator {
+class Minus @Inject constructor() : Operator {
 
     private val rang = 1
 
@@ -11,6 +11,6 @@ class Plus @Inject constructor() : Operator {
     }
 
     override fun calc(a: Double, b: Double): Double {
-        return a.plus(b)
+        return a.minus(b)
     }
 }
