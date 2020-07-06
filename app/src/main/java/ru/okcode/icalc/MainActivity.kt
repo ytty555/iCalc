@@ -12,27 +12,13 @@ import ru.okcode.icalc.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val commandFactory = DaggerCommandFactory.create()
     private val viewModel: CalcViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-//        binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        setClickListeners();
+        binding.viewModel = viewModel
 
-    }
-
-    private fun setClickListeners() {
-        binding.apply {
-
-            // Click "Plus" button
-            btnPlus.setOnClickListener {
-                val command: Command = commandFactory.operatorPlus();
-                Log.e("qq", "setClickListeners Plus. Command: $command")
-                viewModel?.onClickOperator(command)
-            }
-        }
     }
 }

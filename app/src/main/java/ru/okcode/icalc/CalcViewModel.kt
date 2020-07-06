@@ -1,23 +1,17 @@
 package ru.okcode.icalc
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
-import ru.okcode.icalc.command.Command
-import ru.okcode.icalc.command.operand.Operand
-import ru.okcode.icalc.core.CalcProcessor
-import ru.okcode.icalc.core.CoreFactory
-import ru.okcode.icalc.core.DaggerCoreFactory
 
-class CalcViewModel(val calcProcessor: CalcProcessor) : ViewModel() {
-    private val coreFactory: CoreFactory = DaggerCoreFactory.create()
-    private val processor = coreFactory.processor()
-    private val numberCreator = coreFactory.numberCreator()
+class CalcViewModel() : ViewModel() {
 
-    fun onClickDigit(operand: Operand) {
-        numberCreator.handleDigit(operand)
+
+    fun onClickDigit(value: String) {
+        Log.e("qq", "Click digit: $value")
     }
 
-    fun onClickOperator(command: Command) {
-        processor.handleCommand(command)
+    fun onClickOperator(value: String) {
+        Log.e("qq", "Click operator: $value")
     }
 
 }
