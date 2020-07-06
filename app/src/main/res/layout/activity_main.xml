@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="ru.okcode.icalc.CalcViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,17 +21,17 @@
             android:id="@+id/display"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:padding="8dp"
-            android:textSize="80sp"
-            android:textColor="@color/colorWhite"
-            tools:text="551.43"
-            android:text="55 555.88"
             android:gravity="end|bottom"
+            android:padding="8dp"
+            android:text="55 555.88"
             android:textAlignment="gravity"
+            android:textColor="@color/colorWhite"
+            android:textSize="80sp"
             app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="551.43" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
