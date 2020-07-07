@@ -14,31 +14,47 @@ class CalcViewModel() : ViewModel() {
 
     private val coreFactory: CoreFactory = DaggerCoreFactory.create()
     private val calcProcessor = coreFactory.getCalcProcessor()
-    private val displayProcessor = coreFactory.getDisplayProcessor()
 
-    // Промежуточные результаты вычисления
-    private var calcResult: Double = 0.0
 
-    // Результат вычисления для вывода на дисплей
-    private val _displayResult = MutableLiveData<String>()
-    public val displayResult: LiveData<String>
-        get() = _displayResult
 
     fun onClickDigit(value: String) {
         val operand: Operand? = CommandFactory.createOperand(value);
-        operand?.let {
-            calcResult = it.getResultNumber(calcResult)
-            _displayResult.value = displayProcessor.getResultForDisplay(calcResult)
+        operand?.let {currentOperand ->
+            TODO("Not implemented yet")
         }
     }
 
     fun onClickOperator(value: String) {
         Log.e("qq", "Click operator: $value")
         val operator: Operator? = CommandFactory.createOperator(value)
-        operator?.let {
-            calcProcessor.handleNumber(calcResult)
-            calcProcessor.handleOperator(it)
+        operator?.let {currentOperator ->
+            TODO("Not implemented yet")
         }
     }
 
+    class NumberPresentation private constructor() {
+        private var value: Double = 0.0
+
+        companion object {
+            fun create(value: String): NumberPresentation {
+                val numberPresentation = NumberPresentation()
+                numberPresentation.value = numberPresentation.convertToDouble(value)
+                return numberPresentation
+            }
+
+            fun create(value: Double): NumberPresentation {
+                val numberPresentation = NumberPresentation()
+                numberPresentation.value = value
+                return numberPresentation
+            }
+        }
+
+        fun convertToDouble(value: String): Double {
+            TODO()
+        }
+
+        fun convertToString(value: Double): String {
+            TODO()
+        }
+    }
 }
