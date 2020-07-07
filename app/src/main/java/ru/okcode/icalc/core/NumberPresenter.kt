@@ -1,11 +1,21 @@
 package ru.okcode.icalc.core
 
-class NumberPresentation private constructor() {
+/**
+ * Класс предназначен для представления числа в двух типах:
+ * в виде Double и в виде String
+ */
+class NumberPresenter private constructor() {
     private var value: Double = 0.0
 
+    /**
+     * Содержит значение данного числа в формате типа Double
+     */
     val valueAsDouble: Double
         get() = value
 
+    /**
+     * Содержит значение данного числа в формате типа String
+     */
     val valueAsString: String
         get() = convertToString(value)
 
@@ -13,14 +23,22 @@ class NumberPresentation private constructor() {
         private const val COMMA = ','
         private const val POINT = '.'
 
-        fun create(value: String): NumberPresentation {
-            val numberPresentation = NumberPresentation()
+        /**
+         * Перегруженый фабричный метод
+         * @param value - входящее значение числа в формате типа String
+         */
+        fun create(value: String): NumberPresenter {
+            val numberPresentation = NumberPresenter()
             numberPresentation.value = numberPresentation.convertToDouble(value)
             return numberPresentation
         }
 
-        fun create(value: Double): NumberPresentation {
-            val numberPresentation = NumberPresentation()
+        /**
+         * Перегруженый фабричный метод
+         * @param value - входящее значение числа в формате типа Double
+         */
+        fun create(value: Double): NumberPresenter {
+            val numberPresentation = NumberPresenter()
             numberPresentation.value = value
             return numberPresentation
         }
@@ -37,13 +55,9 @@ class NumberPresentation private constructor() {
 
     private fun convertToString(number: Double): String {
         return when (hasFractional(number)) {
-            true -> replacePointByComma(number.toString())
+            true -> number.toString().replace(POINT, COMMA)
             false -> (number.toInt()).toString()
         }
-    }
-
-    private fun replacePointByComma(value: String): String {
-        return value.replace(POINT, COMMA)
     }
 
     private fun hasFractional(number: Double): Boolean {
