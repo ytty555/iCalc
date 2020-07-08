@@ -1,10 +1,11 @@
 package ru.okcode.icalc.core
 
+import androidx.lifecycle.LiveData
 import ru.okcode.icalc.command.Operand
 
 interface NumberCreator {
 
-    fun handleOperand(operand: Operand)
+    val numberPresenter: LiveData<NumberPresenter>
 
-    fun getNumberPresenter(): NumberPresenter
+    fun handleOperand(operand: Operand)
 }

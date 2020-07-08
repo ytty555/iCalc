@@ -17,21 +17,14 @@ class CalcViewModel() : ViewModel() {
     private val calcProcessor = coreFactory.getCalcProcessor()
     private val numberCreator = coreFactory.getNumberCreator()
 
-    private val _numberPresenter = MutableLiveData<NumberPresenter>()
     val numberPresenter: LiveData<NumberPresenter>
-        get() = _numberPresenter
-
+        get() = numberCreator.numberPresenter
 
     fun onClickDigit(operand: Operand) {
         numberCreator.handleOperand(operand)
-        _numberPresenter.value = numberCreator.getNumberPresenter()
     }
 
     fun onClickOperator(value: String) {
-        Log.e("qq", "Click operator: $value")
-        val operator: Operator? = CommandFactory.createOperator(value)
-        operator?.let { currentOperator ->
-            TODO("Not implemented yet")
-        }
+        TODO("Not implemented yet")
     }
 }
