@@ -8,4 +8,6 @@ interface NumberCreator {
     val numberPresenter: LiveData<NumberPresenter>
 
     fun handleOperand(operand: Operand)
+
+    fun setNumberPresenter(numberPresenter: NumberPresenter)
 }

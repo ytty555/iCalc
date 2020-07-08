@@ -1,16 +1,16 @@
 package ru.okcode.icalc.command
 
-enum class Operand {
-    DIGIT_0,
-    DIGIT_000,
-    DIGIT_1,
-    DIGIT_2,
-    DIGIT_3,
-    DIGIT_4,
-    DIGIT_5,
-    DIGIT_6,
-    DIGIT_7,
-    DIGIT_8,
-    DIGIT_9,
-    COMMA
+enum class Operand(val value: String) {
+    DIGIT_0("0"),
+    DIGIT_000("000"),
+    DIGIT_1("1"),
+    DIGIT_2("2"),
+    DIGIT_3("3"),
+    DIGIT_4("4"),
+    DIGIT_5("5"),
+    DIGIT_6("6"),
+    DIGIT_7("7"),
+    DIGIT_8("8"),
+    DIGIT_9("9"),
+    COMMA(",")
 }

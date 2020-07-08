@@ -3,6 +3,7 @@ package ru.okcode.icalc.core
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.okcode.icalc.command.Operand
+import java.lang.StringBuilder
 import javax.inject.Inject
 
 class NumberCreatorImpl @Inject constructor() : NumberCreator {
@@ -17,7 +18,16 @@ class NumberCreatorImpl @Inject constructor() : NumberCreator {
     }
 
     override fun handleOperand(operand: Operand) {
-        TODO("Not yet implemented")
+        val resultValue = StringBuilder()
+        val stringPresentation = numberPresenter.value!!.valueAsString
+        resultValue.append(stringPresentation)
+
+        TODO("Not implemented")
+
+    }
+
+    override fun setNumberPresenter(numberPresenter: NumberPresenter) {
+        _numberPresenter.value = numberPresenter
     }
 
 }
