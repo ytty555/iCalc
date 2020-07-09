@@ -9,7 +9,6 @@ class CommandFactory {
         fun createOperator(value: String): Operator? {
             return when (value) {
                 "clean" -> Clear()
-                "trigger_plus_minus" -> TriggerPlusMinus()
                 "percent" -> Percent()
                 "plus" -> Plus()
                 "minus" -> Minus()

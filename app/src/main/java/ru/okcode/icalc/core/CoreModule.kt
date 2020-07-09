@@ -13,6 +13,6 @@ abstract class CoreModule {
 
     @Binds
     @Singleton
-    abstract fun numberCreator(creator: NumberCreatorImpl): NumberCreator
+    abstract fun display(display: DisplayImpl): Display
 
 }

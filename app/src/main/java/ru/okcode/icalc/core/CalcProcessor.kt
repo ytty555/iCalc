@@ -1,7 +1,6 @@
 package ru.okcode.icalc.core
 
-import ru.okcode.icalc.command.Command
-import ru.okcode.icalc.command.operator.Operator
+import ru.okcode.icalc.command.Operator
 
 interface CalcProcessor {
 

@@ -3,11 +3,14 @@ package ru.okcode.icalc.core
 import androidx.lifecycle.LiveData
 import ru.okcode.icalc.command.Operand
 
-interface NumberCreator {
+interface Display {
 
-    val numberPresenter: LiveData<NumberPresenter>
+    val displayValue: LiveData<String>
 
     fun handleOperand(operand: Operand)
 
-    fun setNumberPresenter(numberPresenter: NumberPresenter)
+    fun setDisplayValue(value: String)
+
+
+
 }

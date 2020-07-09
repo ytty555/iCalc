@@ -1,6 +1,6 @@
 package ru.okcode.icalc.core
 
-import ru.okcode.icalc.command.operator.Operator
+import ru.okcode.icalc.command.Operator
 import javax.inject.Inject
 
 class CalcProcessorImpl @Inject constructor() : CalcProcessor {
