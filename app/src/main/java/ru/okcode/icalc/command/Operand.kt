@@ -13,5 +13,6 @@ enum class Operand(val value: String) {
     DIGIT_8("8"),
     DIGIT_9("9"),
     COMMA(","),
-    TRIGGER_PLUS_MINUS("trigger_plus_minus")
+    TRIGGER_PLUS_MINUS("trigger_plus_minus"),
+    CLEAR_AC("clear_ac")
 }

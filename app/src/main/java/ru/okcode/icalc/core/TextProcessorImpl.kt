@@ -5,6 +5,11 @@ import ru.okcode.icalc.command.Operand
 class TextProcessorImpl : TextProcessor {
 
     override fun generateText(baseText: String, operand: Operand): String {
+
+        if (operand == Operand.CLEAR_AC) {
+            return "0"
+        }
+
         val baseTextUnformatted = baseText.unformat()
         if (countDigits(baseTextUnformatted) >= 9) {
             return when (operand) {
