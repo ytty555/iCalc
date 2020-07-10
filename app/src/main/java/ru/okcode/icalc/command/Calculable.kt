@@ -1,6 +1,6 @@
 package ru.okcode.icalc.command
 
-interface Calculatable {
+interface Calculable {
 
     fun calc(vararg args: Double): Double
 

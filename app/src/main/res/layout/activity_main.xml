@@ -29,7 +29,7 @@
             app:autoSizeTextType="uniform"
             app:autoSizeMaxTextSize="80sp"
             app:autoSizeMinTextSize="18sp"
-            android:text="@{viewModel.displayValue}"
+            android:text="@{viewModel.display}"
             android:textAlignment="gravity"
             android:textColor="@color/colorWhite"
             android:textSize="80sp"

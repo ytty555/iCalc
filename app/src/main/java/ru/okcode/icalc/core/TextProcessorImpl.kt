@@ -1,8 +1,9 @@
 package ru.okcode.icalc.core
 
 import ru.okcode.icalc.command.Operand
+import javax.inject.Inject
 
-class TextProcessorImpl : TextProcessor {
+class TextProcessorImpl @Inject constructor() : TextProcessor {
 
     override fun generateText(baseText: String, operand: Operand): String {
 
