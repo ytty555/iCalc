@@ -1,6 +1,8 @@
 package ru.okcode.icalc.core
 
 import ru.okcode.icalc.command.Operand
+import ru.okcode.icalc.utils.formatForDisplay
+import ru.okcode.icalc.utils.unformat
 import javax.inject.Inject
 
 class TextProcessorImpl @Inject constructor() : TextProcessor {
@@ -80,43 +82,3 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
     }
 }
 
-fun String.formatForDisplay(): String {
-    val input: String = this.unformat()
-    val partToComma: String
-    val partAfterComma: String
-
-    if (input.contains(',')) {
-        val indexOfComma = input.indexOf(',')
-        partToComma = input.substring(0, indexOfComma)
-        partAfterComma = input.substring(indexOfComma)
-    } else {
-        partToComma = input
-        partAfterComma = ""
-    }
-
-    val resultReversed = java.lang.StringBuilder()
-    val partToCommaReversed = partToComma.reversed()
-
-    for (i in partToCommaReversed.indices) {
-        val counter = i + 1
-        resultReversed.append(partToCommaReversed[i])
-        if (counter < partToCommaReversed.length && counter % 3 == 0) {
-            resultReversed.append(" ")
-        }
-    }
-
-    return resultReversed.toString().reversed() + partAfterComma
-}
-
-fun String.unformat(): String {
-    val input = this
-    val result = java.lang.StringBuilder()
-
-    for (ch in input) {
-        if (ch != ' ') {
-            result.append(ch)
-        }
-    }
-
-    return result.toString()
-}

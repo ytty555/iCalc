@@ -14,4 +14,7 @@ abstract class CoreModule {
     @Binds
     abstract fun textProcessor(processor: TextProcessorImpl): TextProcessor
 
+    @Binds
+    abstract fun numberProcessor(processor: NumberProcessorImpl): NumberProcessor
+
 }

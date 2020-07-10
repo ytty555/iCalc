@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import ru.okcode.icalc.command.Operand
 import ru.okcode.icalc.core.*
+import ru.okcode.icalc.utils.ZERO
 
 class CalcViewModel() : ViewModel() {
 
@@ -18,10 +19,6 @@ class CalcViewModel() : ViewModel() {
 
     init {
         _display.value = ZERO
-    }
-
-    companion object {
-        private const val ZERO = "0"
     }
 
     fun onClickOperand(operand: Operand) {
