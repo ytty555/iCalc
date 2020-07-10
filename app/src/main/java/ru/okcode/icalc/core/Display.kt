@@ -11,6 +11,4 @@ interface Display {
 
     fun setDisplayValue(value: String)
 
-
-
 }

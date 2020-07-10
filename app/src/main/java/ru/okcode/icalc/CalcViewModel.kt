@@ -23,4 +23,8 @@ class CalcViewModel() : ViewModel() {
     fun onClickOperator(value: String) {
         TODO("Not implemented yet")
     }
+
+    fun onClickClear() {
+        display.setDisplayValue("0")
+    }
 }

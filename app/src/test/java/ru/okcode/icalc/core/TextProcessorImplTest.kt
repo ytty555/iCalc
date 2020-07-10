@@ -63,7 +63,9 @@ class TextProcessorImplTest(
                 arrayOf("0,", Operand.TRIGGER_PLUS_MINUS, "-0,"),
                 arrayOf("-0,", Operand.TRIGGER_PLUS_MINUS, "0,"),
 
-                arrayOf("1", Operand.COMMA, "1,")
+                arrayOf("1", Operand.COMMA, "1,"),
+
+                arrayOf("12345678", Operand.DIGIT_9, "123 456 789")
                 )
         }
     }

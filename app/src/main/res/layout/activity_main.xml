@@ -52,7 +52,7 @@
             <Button
                 android:id="@+id/btn_AC"
                 style="@style/button.superGray"
-                android:onClick='@{() -> viewModel.onClickOperand(Operand.CLEAR_AC)}'
+                android:onClick='@{() -> viewModel.onClickClear()}'
                 android:text="@string/operation_AC_C"
                 app:layout_constraintEnd_toStartOf="@+id/btn_trigger_plus_minus"
                 app:layout_constraintHorizontal_bias="0.5"
