@@ -17,7 +17,7 @@ class TextProcessorImplTest(
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameterized.Parameters(name = "{index}: generateText \"{0}\" => \"{1}\" => \"{2}\"")
         fun data(): Collection<Array<Any>> {
             return listOf(
                 arrayOf("0", Operand.DIGIT_1, "1"),

@@ -1,27 +1,54 @@
 package ru.okcode.icalc.core
 
-import ru.okcode.icalc.command.Operator
+import ru.okcode.icalc.command.Calculable
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
 
 class CalcProcessorImpl @Inject constructor() : CalcProcessor {
 
-    private val stackNumbers: Stack<Double> = Stack()
+    private val numbers: Stack<Double> = Stack()
 
-    private val queueOperators: Queue<Operator> = LinkedList()
+    private val oparators: Stack<Calculable> = Stack()
 
-    init {
-        stackNumbers.push(0.0)
+    private var calcResult: Double = 0.0
+
+
+    override fun handleOperator(operator: Calculable) {
+
+        if (oparators.isEmpty()) {
+            oparators.push(operator)
+        } else {
+            val operatorInQueue = oparators.peek()
+            val rangOperatorInQueue = operatorInQueue.getRang()
+            val rangOperator = operator.getRang()
+            if (rangOperator <= rangOperatorInQueue) {
+                calcOperatorsFromQueue()
+            }
+            oparators.push(operator)
+
+        }
     }
 
-
-    override fun handleOperator(operator: Operator) {
-        TODO("Not yet implemented")
+    private fun calcOperatorsFromQueue() {
+        while (oparators.isNotEmpty()) {
+            val b = numbers.pop()
+            val a = numbers.pop()
+            val operator = oparators.pop()
+            val result = operator.calc(a, b)
+            numbers.push(result)
+            calcResult = result
+        }
     }
 
     override fun handleNumber(number: Double) {
-        TODO("Not yet implemented")
+        numbers.push(number)
     }
 
+    override fun handleEqually() {
+        calcOperatorsFromQueue()
+    }
+
+    override fun getCalcResult(): Double {
+        return calcResult
+    }
 }
