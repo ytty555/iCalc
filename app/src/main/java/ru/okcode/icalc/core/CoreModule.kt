@@ -11,4 +11,8 @@ abstract class CoreModule {
     @Singleton
     abstract fun calcProcessor(processor: CalcProcessorImpl): CalcProcessor
 
+    @Binds
+    @Singleton
+    abstract fun display(display: DisplayImpl): Display
+
 }

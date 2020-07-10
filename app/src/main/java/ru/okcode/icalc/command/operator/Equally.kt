@@ -1,5 +1,6 @@
 package ru.okcode.icalc.command.operator
 
+import ru.okcode.icalc.command.Operator
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -9,10 +10,5 @@ class Equally @Inject constructor() : Operator {
 
     override fun getRang(): Int {
         return rang
-    }
-
-    override fun calc(a: Double, b: Double): Double {
-        // TODO TEST
-        throw Exception("Method not allowed for this type!")
     }
 }
