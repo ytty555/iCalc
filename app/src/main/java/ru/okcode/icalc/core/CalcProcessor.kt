@@ -11,5 +11,5 @@ interface CalcProcessor {
 
     fun handleEqually()
 
-    fun lastNumber(): Observable<Double>
+    fun lastInputNumber(): Observable<Double>
 }

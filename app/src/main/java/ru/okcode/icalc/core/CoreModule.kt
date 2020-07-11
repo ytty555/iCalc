@@ -12,6 +12,7 @@ abstract class CoreModule {
     abstract fun calcProcessor(processor: CalcProcessorImpl): CalcProcessor
 
     @Binds
+    @Singleton
     abstract fun textProcessor(processor: TextProcessorImpl): TextProcessor
 
     @Binds

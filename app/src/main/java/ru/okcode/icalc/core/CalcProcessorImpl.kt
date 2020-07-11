@@ -36,6 +36,7 @@ class CalcProcessorImpl @Inject constructor() : CalcProcessor {
             val operator = operators.pop()
             val result = operator.calc(a, b)
             numbers.push(result)
+            lastInputNumber()
         }
     }
 
@@ -48,13 +49,14 @@ class CalcProcessorImpl @Inject constructor() : CalcProcessor {
     }
 
 
-    override fun lastNumber(): Observable<Double> {
+    override fun lastInputNumber(): Observable<Double> {
         return if (numbers.empty()) {
-            Log.e("qq", "CalcProcessor lastNumber 0.0")
+            Log.e("qq", "CalcProcessorImpl lastInputNumber: 0.0")
             Observable.just(0.0)
         } else {
-            Log.e("qq", "CalcProcessor lastNumber ${numbers.peek()}")
+            Log.e("qq", "CalcProcessorImpl lastInputNumber: ${numbers.peek()}")
             Observable.just(numbers.peek())
+
         }
     }
 }

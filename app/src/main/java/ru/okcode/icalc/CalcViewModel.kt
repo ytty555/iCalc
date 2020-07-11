@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.disposables.Disposable
 import ru.okcode.icalc.command.Operand
-import ru.okcode.icalc.command.OperatorFactory
 import ru.okcode.icalc.command.OperatorType
 import ru.okcode.icalc.core.*
 import ru.okcode.icalc.utils.ZERO
@@ -22,28 +22,48 @@ class CalcViewModel() : ViewModel() {
     val display: LiveData<String>
         get() = _display
 
+    private val displayObserver: Observer<String> = object : Observer<String> {
+        override fun onComplete() {
+            Log.e("qq", "onComplete")
+        }
+
+        override fun onSubscribe(d: Disposable?) {
+            Log.e("qq", "onSubscribe")
+
+        }
+
+        override fun onNext(t: String?) {
+            Log.e("qq", "onNext")
+            setDisplayValue(t ?: ZERO)
+        }
+
+        override fun onError(e: Throwable?) {
+            Log.e("qq", "onError")
+
+        }
+
+    }
+
     init {
         _display.value = ZERO
+
+        textProcessor.numberAsString.subscribe(displayObserver)
     }
 
     fun onClickOperand(operand: Operand) {
-//        val oldDisplayText = display.value?: ZERO
-//        _display.value = textProcessor.generateText(oldDisplayText, operand)
-        TODO("Not implemented yet")
+        textProcessor
+            .createText(operand)
     }
 
+
     fun onClickOperator(operatorType: OperatorType) {
-//        val operator = OperatorFactory.createOperator(operatorType)
-//        val nextNumber = numberProcessor.generateNumber(display.value?: ZERO)
-//        calcProcessor.handleNumber(nextNumber)
-//        calcProcessor.handleOperator(operator)
-        TODO("Not implemented yet")
+        //        TODO("Not implemented yet")
 
     }
 
     fun onClickClear() {
-//        setDisplayValue(ZERO)
-        TODO("Not implemented yet")
+        textProcessor
+            .clear()
     }
 
     fun onClickEqually() {
@@ -53,4 +73,5 @@ class CalcViewModel() : ViewModel() {
     private fun setDisplayValue(value: String) {
         _display.value = value
     }
+
 }

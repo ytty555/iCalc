@@ -1,20 +1,26 @@
 package ru.okcode.icalc.core
 
+import io.reactivex.rxjava3.subjects.PublishSubject
 import ru.okcode.icalc.command.Operand
+import ru.okcode.icalc.utils.ZERO
 import ru.okcode.icalc.utils.formatForDisplay
 import ru.okcode.icalc.utils.unformat
 import javax.inject.Inject
 
 class TextProcessorImpl @Inject constructor() : TextProcessor {
 
-    override fun generateText(baseText: String, operand: Operand): String {
+    private var _numberAsText: String = ZERO
+    override val numberAsString: PublishSubject<String> = PublishSubject.create()
 
-        val baseTextUnformatted = baseText.unformat()
+    override fun createText(operand: Operand): TextProcessor {
+
+        val baseTextUnformatted = _numberAsText.unformat()
         if (countDigits(baseTextUnformatted) >= 9) {
-            return when (operand) {
-                Operand.TRIGGER_PLUS_MINUS -> triggerPlusMinus(baseTextUnformatted).formatForDisplay()
-                else -> return baseTextUnformatted.formatForDisplay()
+            when (operand) {
+                Operand.TRIGGER_PLUS_MINUS -> setText(triggerPlusMinus(baseTextUnformatted).formatForDisplay())
+                else -> setText(baseTextUnformatted.formatForDisplay())
             }
+            return this
         }
         val result = StringBuilder()
 
@@ -61,11 +67,14 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
             }
         }
 
-        return result.toString().formatForDisplay()
+        setText(result.toString().formatForDisplay())
+
+        return this
     }
 
-    override fun generateText(number: Double): String {
-        return number.toString().formatForDisplay()
+    override fun clear(): TextProcessor {
+        setText(ZERO)
+        return this
     }
 
     private fun countDigits(baseText: String): Int {
@@ -83,6 +92,11 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
             '-' -> input.substring(1)
             else -> "-$input"
         }
+    }
+
+    private fun setText(value: String) {
+        _numberAsText = value
+        numberAsString.onNext(_numberAsText)
     }
 }
 
