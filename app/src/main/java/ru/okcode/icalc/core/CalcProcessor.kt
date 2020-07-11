@@ -1,7 +1,7 @@
 package ru.okcode.icalc.core
 
+import io.reactivex.rxjava3.core.Observable
 import ru.okcode.icalc.command.Calculable
-import ru.okcode.icalc.command.Operator
 
 interface CalcProcessor {
 
@@ -11,5 +11,5 @@ interface CalcProcessor {
 
     fun handleEqually()
 
-    fun getCalcResult(): Double
+    fun lastNumber(): Observable<Double>
 }

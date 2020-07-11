@@ -64,6 +64,10 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
         return result.toString().formatForDisplay()
     }
 
+    override fun generateText(number: Double): String {
+        return number.toString().formatForDisplay()
+    }
+
     private fun countDigits(baseText: String): Int {
         var counter = 0
 
