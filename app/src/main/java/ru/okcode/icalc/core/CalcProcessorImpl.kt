@@ -1,62 +1,24 @@
 package ru.okcode.icalc.core
 
-import android.util.Log
-import io.reactivex.rxjava3.core.Observable
-import ru.okcode.icalc.command.Calculable
-import java.util.*
+import ru.okcode.icalc.command.Operand
+import ru.okcode.icalc.command.Operator
 import javax.inject.Inject
 
 class CalcProcessorImpl @Inject constructor() : CalcProcessor {
-
-    private val numbers: Stack<Double> = Stack()
-
-    private val operators: Stack<Calculable> = Stack()
-
-
-    override fun handleOperator(operator: Calculable) {
-
-        if (operators.isEmpty()) {
-            operators.push(operator)
-        } else {
-            val operatorInQueue = operators.peek()
-            val rangOperatorInQueue = operatorInQueue.getRang()
-            val rangOperator = operator.getRang()
-            if (rangOperator <= rangOperatorInQueue) {
-                calcOperatorsFromQueue()
-            }
-            operators.push(operator)
-
-        }
+    override fun handleOperand(operand: Operand) {
+        TODO("Not yet implemented")
     }
 
-    private fun calcOperatorsFromQueue() {
-        while (operators.isNotEmpty()) {
-            val b = numbers.pop()
-            val a = numbers.pop()
-            val operator = operators.pop()
-            val result = operator.calc(a, b)
-            numbers.push(result)
-            lastInputNumber()
-        }
+    override fun handleOperator(operator: Operator) {
+        TODO("Not yet implemented")
     }
 
-    override fun handleNumber(number: Double) {
-        numbers.push(number)
+    override fun handleClear() {
+        TODO("Not yet implemented")
     }
 
     override fun handleEqually() {
-        calcOperatorsFromQueue()
+        TODO("Not yet implemented")
     }
 
-
-    override fun lastInputNumber(): Observable<Double> {
-        return if (numbers.empty()) {
-            Log.e("qq", "CalcProcessorImpl lastInputNumber: 0.0")
-            Observable.just(0.0)
-        } else {
-            Log.e("qq", "CalcProcessorImpl lastInputNumber: ${numbers.peek()}")
-            Observable.just(numbers.peek())
-
-        }
-    }
 }

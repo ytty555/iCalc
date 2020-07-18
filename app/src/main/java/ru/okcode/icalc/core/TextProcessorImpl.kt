@@ -10,7 +10,7 @@ import javax.inject.Inject
 class TextProcessorImpl @Inject constructor() : TextProcessor {
 
     private var _numberAsText: String = ZERO
-    override val numberAsString: PublishSubject<String> = PublishSubject.create()
+    override val numberAsStringObservable: PublishSubject<String> = PublishSubject.create()
 
     override fun createText(operand: Operand): TextProcessor {
 
@@ -96,7 +96,7 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
 
     private fun setText(value: String) {
         _numberAsText = value
-        numberAsString.onNext(_numberAsText)
+        numberAsStringObservable.onNext(_numberAsText)
     }
 }
 
