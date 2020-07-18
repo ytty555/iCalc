@@ -1,10 +1,9 @@
 package ru.okcode.icalc.command.operator
 
-import ru.okcode.icalc.command.Calculable
 import ru.okcode.icalc.command.Operator
 import javax.inject.Inject
 
-class Percent @Inject constructor() : Operator, Calculable {
+class Percent @Inject constructor() : Operator {
 
     private val rang = 0
 

@@ -6,7 +6,7 @@ class OperatorFactory {
 
     companion object {
 
-        fun createOperator(operatorType: OperatorType): Calculable {
+        fun createOperator(operatorType: OperatorType): Operator {
             return when (operatorType) {
                 OperatorType.PERCENT -> Percent()
                 OperatorType.PLUS -> Plus()
