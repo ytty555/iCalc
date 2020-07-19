@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ru.okcode.icalc.command.Operand
 import ru.okcode.icalc.command.Operator
+import ru.okcode.icalc.command.operator.Percent
 import ru.okcode.icalc.utils.ZERO
 import java.util.*
 import javax.inject.Inject
@@ -42,6 +43,13 @@ class CalcProcessorImpl @Inject constructor(
      * Handle Operator
      */
     override fun handleOperator(operator: Operator) {
+
+        if (operator is Percent) {
+            handlePercent()
+            _displayResult.value = textProcessor.nextNumberAsText
+            return
+        }
+
         nextOperator = operator
         handleNextNumber(displayResult.value)
 
@@ -59,6 +67,12 @@ class CalcProcessorImpl @Inject constructor(
             }
         }
         lastInputIsOperator = true
+    }
+
+    private fun handlePercent() {
+        val nextNumber = textProcessor.convertToNumber(textProcessor.nextNumberAsText)
+        val percent = nextNumber / 100
+        textProcessor.nextNumberAsText = textProcessor.convertToText(percent)
     }
 
     private fun rollback() {
@@ -88,9 +102,16 @@ class CalcProcessorImpl @Inject constructor(
             }
 
             val operator = operatorsStack.pop()
-            val calcResult = operator.calc(numberA, numberB)
-            _displayResult.value = textProcessor.convertToText(calcResult)
-            numbersStack.push(calcResult)
+            try {
+                val calcResult = operator.calc(numberA, numberB)
+                _displayResult.value = textProcessor.convertToText(calcResult)
+                numbersStack.push(calcResult)
+            } catch (exception: ArithmeticException) {
+                _displayResult.value = exception.message
+                numbersStack.clear()
+                operatorsStack.clear()
+                nextOperator = null
+            }
         }
     }
 

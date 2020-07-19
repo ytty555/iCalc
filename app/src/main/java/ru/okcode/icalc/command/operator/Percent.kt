@@ -12,7 +12,7 @@ class Percent @Inject constructor() : Operator {
     }
 
     override fun calc(vararg args: Double): Double {
-        val a = args[0]
+        val a = args[args.lastIndex]
         return a.div(100)
     }
 }
