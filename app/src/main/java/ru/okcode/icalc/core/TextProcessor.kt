@@ -1,12 +1,15 @@
 package ru.okcode.icalc.core
 
-import io.reactivex.rxjava3.subjects.PublishSubject
 import ru.okcode.icalc.command.Operand
 
 interface TextProcessor {
-    val numberAsStringObservable: PublishSubject<String>
 
-    fun createText(operand: Operand): TextProcessor
+    fun createText(operand: Operand)
 
-    fun clear(): TextProcessor
+    var nextNumberAsText: String
+
+    fun convertToText(number: Double): String
+
+    fun convertToNumber(numberAsText: String): Double
+
 }

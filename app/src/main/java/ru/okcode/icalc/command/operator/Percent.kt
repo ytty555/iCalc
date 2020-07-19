@@ -7,7 +7,7 @@ class Percent @Inject constructor() : Operator {
 
     private val rang = 0
 
-    override fun getRang(): Int {
+    override fun rang(): Int {
         return rang
     }
 

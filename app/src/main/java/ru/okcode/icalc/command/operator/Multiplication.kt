@@ -7,7 +7,7 @@ class Multiplication @Inject constructor() : Operator {
 
     private val rang = 2
 
-    override fun getRang(): Int {
+    override fun rang(): Int {
         return rang
     }
 

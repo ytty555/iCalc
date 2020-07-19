@@ -1,26 +1,47 @@
 package ru.okcode.icalc.core
 
-import io.reactivex.rxjava3.subjects.PublishSubject
 import ru.okcode.icalc.command.Operand
 import ru.okcode.icalc.utils.ZERO
 import ru.okcode.icalc.utils.formatForDisplay
+import ru.okcode.icalc.utils.normalizeForNumberCreator
 import ru.okcode.icalc.utils.unformat
 import javax.inject.Inject
 
 class TextProcessorImpl @Inject constructor() : TextProcessor {
 
-    private var _numberAsText: String = ZERO
-    override val numberAsStringObservable: PublishSubject<String> = PublishSubject.create()
+    /**
+     * nextNumberAsText actual value
+     */
+    override var nextNumberAsText: String = ZERO
 
-    override fun createText(operand: Operand): TextProcessor {
+    /**
+     * Convert Double to String
+     */
+    override fun convertToText(number: Double): String {
+        return number.toString().formatForDisplay()
+    }
 
-        val baseTextUnformatted = _numberAsText.unformat()
+    /**
+     * Convert String to Double
+     */
+    override fun convertToNumber(numberAsText: String): Double {
+        return numberAsText
+            .normalizeForNumberCreator()
+            .toDouble()
+    }
+
+    /**
+     * Create nextNumberAsText
+     */
+    override fun createText(operand: Operand) {
+
+        val baseTextUnformatted = nextNumberAsText.unformat()
         if (countDigits(baseTextUnformatted) >= 9) {
             when (operand) {
-                Operand.TRIGGER_PLUS_MINUS -> setText(triggerPlusMinus(baseTextUnformatted).formatForDisplay())
-                else -> setText(baseTextUnformatted.formatForDisplay())
+                Operand.TRIGGER_PLUS_MINUS ->
+                    nextNumberAsText = triggerPlusMinus(baseTextUnformatted).formatForDisplay()
+                else -> nextNumberAsText = baseTextUnformatted.formatForDisplay()
             }
-            return this
         }
         val result = StringBuilder()
 
@@ -67,14 +88,7 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
             }
         }
 
-        setText(result.toString().formatForDisplay())
-
-        return this
-    }
-
-    override fun clear(): TextProcessor {
-        setText(ZERO)
-        return this
+        nextNumberAsText = result.toString().formatForDisplay()
     }
 
     private fun countDigits(baseText: String): Int {
@@ -92,11 +106,6 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
             '-' -> input.substring(1)
             else -> "-$input"
         }
-    }
-
-    private fun setText(value: String) {
-        _numberAsText = value
-        numberAsStringObservable.onNext(_numberAsText)
     }
 }
 

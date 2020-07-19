@@ -7,7 +7,7 @@ class Minus @Inject constructor() : Operator {
 
     private val rang = 1
 
-    override fun getRang(): Int {
+    override fun rang(): Int {
         return rang
     }
 
