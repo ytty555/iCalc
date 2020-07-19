@@ -4,7 +4,7 @@ import ru.okcode.icalc.command.Operand
 
 interface TextProcessor {
 
-    fun createText(operand: Operand)
+    fun createNextNumberAsText(operand: Operand)
 
     var nextNumberAsText: String
 

@@ -1,10 +1,7 @@
 package ru.okcode.icalc.core
 
 import ru.okcode.icalc.command.Operand
-import ru.okcode.icalc.utils.ZERO
-import ru.okcode.icalc.utils.formatForDisplay
-import ru.okcode.icalc.utils.normalizeForNumberCreator
-import ru.okcode.icalc.utils.unformat
+import ru.okcode.icalc.utils.*
 import javax.inject.Inject
 
 class TextProcessorImpl @Inject constructor() : TextProcessor {
@@ -18,7 +15,12 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
      * Convert Double to String
      */
     override fun convertToText(number: Double): String {
-        return number.toString().formatForDisplay()
+        var numberAsString = number.toString().replace(POINT, COMMA)
+        if (numberAsString.endsWith(",0")) {
+            val indexComma = numberAsString.indexOf(COMMA)
+            numberAsString = numberAsString.substring(0, indexComma)
+        }
+        return numberAsString.formatForDisplay()
     }
 
     /**
@@ -33,7 +35,7 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
     /**
      * Create nextNumberAsText
      */
-    override fun createText(operand: Operand) {
+    override fun createNextNumberAsText(operand: Operand) {
 
         val baseTextUnformatted = nextNumberAsText.unformat()
         if (countDigits(baseTextUnformatted) >= 9) {

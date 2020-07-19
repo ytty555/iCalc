@@ -33,7 +33,7 @@ class CalcProcessorImpl @Inject constructor(
      * Handle Operand
      */
     override fun handleOperand(operand: Operand) {
-        textProcessor.createText(operand)
+        textProcessor.createNextNumberAsText(operand)
         _displayResult.value = textProcessor.nextNumberAsText
         lastInputIsOperator = false
     }
