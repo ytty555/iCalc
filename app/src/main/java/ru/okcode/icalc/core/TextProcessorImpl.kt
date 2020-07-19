@@ -1,20 +1,48 @@
 package ru.okcode.icalc.core
 
 import ru.okcode.icalc.command.Operand
+import ru.okcode.icalc.utils.*
+import javax.inject.Inject
 
-class TextProcessorImpl : TextProcessor {
+class TextProcessorImpl @Inject constructor() : TextProcessor {
 
-    override fun generateText(baseText: String, operand: Operand): String {
+    /**
+     * nextNumberAsText actual value
+     */
+    override var nextNumberAsText: String = ZERO
 
-        if (operand == Operand.CLEAR_AC) {
-            return "0"
+    /**
+     * Convert Double to String
+     */
+    override fun convertToText(number: Double): String {
+        var numberAsString = number.toString().replace(POINT, COMMA)
+        if (numberAsString.endsWith(",0")) {
+            val indexComma = numberAsString.indexOf(COMMA)
+            numberAsString = numberAsString.substring(0, indexComma)
         }
+        return numberAsString.formatForDisplay()
+    }
 
-        val baseTextUnformatted = baseText.unformat()
+    /**
+     * Convert String to Double
+     */
+    override fun convertToNumber(numberAsText: String): Double {
+        return numberAsText
+            .normalizeForNumberCreator()
+            .toDouble()
+    }
+
+    /**
+     * Create nextNumberAsText
+     */
+    override fun createNextNumberAsText(operand: Operand) {
+
+        val baseTextUnformatted = nextNumberAsText.unformat()
         if (countDigits(baseTextUnformatted) >= 9) {
-            return when (operand) {
-                Operand.TRIGGER_PLUS_MINUS -> triggerPlusMinus(baseTextUnformatted).formatForDisplay()
-                else -> return baseTextUnformatted.formatForDisplay()
+            when (operand) {
+                Operand.TRIGGER_PLUS_MINUS ->
+                    nextNumberAsText = triggerPlusMinus(baseTextUnformatted).formatForDisplay()
+                else -> nextNumberAsText = baseTextUnformatted.formatForDisplay()
             }
         }
         val result = StringBuilder()
@@ -62,7 +90,7 @@ class TextProcessorImpl : TextProcessor {
             }
         }
 
-        return result.toString().formatForDisplay()
+        nextNumberAsText = result.toString().formatForDisplay()
     }
 
     private fun countDigits(baseText: String): Int {
@@ -83,43 +111,3 @@ class TextProcessorImpl : TextProcessor {
     }
 }
 
-fun String.formatForDisplay(): String {
-    val input: String = this.unformat()
-    val partToComma: String
-    val partAfterComma: String
-
-    if (input.contains(',')) {
-        val indexOfComma = input.indexOf(',')
-        partToComma = input.substring(0, indexOfComma)
-        partAfterComma = input.substring(indexOfComma)
-    } else {
-        partToComma = input
-        partAfterComma = ""
-    }
-
-    val resultReversed = java.lang.StringBuilder()
-    val partToCommaReversed = partToComma.reversed()
-
-    for (i in partToCommaReversed.indices) {
-        val counter = i + 1
-        resultReversed.append(partToCommaReversed[i])
-        if (counter < partToCommaReversed.length && counter % 3 == 0) {
-            resultReversed.append(" ")
-        }
-    }
-
-    return resultReversed.toString().reversed() + partAfterComma
-}
-
-fun String.unformat(): String {
-    val input = this
-    val result = java.lang.StringBuilder()
-
-    for (ch in input) {
-        if (ch != ' ') {
-            result.append(ch)
-        }
-    }
-
-    return result.toString()
-}

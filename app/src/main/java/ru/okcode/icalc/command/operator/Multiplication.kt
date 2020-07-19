@@ -1,14 +1,13 @@
 package ru.okcode.icalc.command.operator
 
-import ru.okcode.icalc.command.Calculatable
 import ru.okcode.icalc.command.Operator
 import javax.inject.Inject
 
-class Multiplication @Inject constructor() : Operator, Calculatable {
+class Multiplication @Inject constructor() : Operator {
 
     private val rang = 2
 
-    override fun getRang(): Int {
+    override fun rang(): Int {
         return rang
     }
 

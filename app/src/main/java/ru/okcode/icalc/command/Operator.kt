@@ -1,5 +1,6 @@
 package ru.okcode.icalc.command
 
 interface Operator {
-    fun getRang(): Int
+    fun rang(): Int
+    fun calc(vararg args: Double): Double
 }

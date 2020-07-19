@@ -1,6 +1,5 @@
 package ru.okcode.icalc.core
 
-import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -13,11 +12,11 @@ class TextProcessorImplTest(
     private val expected: String
 ) {
 
-    private val textProcessor: TextProcessor = TextProcessorImpl()
+   private val textProcessor: TextProcessor = TextProcessorImpl()
 
     companion object {
         @JvmStatic
-        @Parameterized.Parameters
+        @Parameterized.Parameters(name = "{index}: generateText \"{0}\" => \"{1}\" => \"{2}\"")
         fun data(): Collection<Array<Any>> {
             return listOf(
                 arrayOf("0", Operand.DIGIT_1, "1"),
@@ -63,15 +62,19 @@ class TextProcessorImplTest(
                 arrayOf("0,", Operand.TRIGGER_PLUS_MINUS, "-0,"),
                 arrayOf("-0,", Operand.TRIGGER_PLUS_MINUS, "0,"),
 
-                arrayOf("1", Operand.COMMA, "1,")
-                )
+                arrayOf("1", Operand.COMMA, "1,"),
+
+                arrayOf("12345678", Operand.DIGIT_9, "123 456 789")
+            )
         }
     }
 
     @Test
     fun generateText() {
-        val textActual = textProcessor.generateText(start, operand)
-        val textExpected: String = expected
-        assertEquals(textExpected, textActual)
+//        textProcessor.setNextNumberAsText(start)
+//        textProcessor.createText(operand)
+//        val textActual = textProcessor.nextNumberAsText.value
+//        val textExpected: String = expected
+//        assertEquals(textExpected, textActual)
     }
 }

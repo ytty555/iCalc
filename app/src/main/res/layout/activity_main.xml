@@ -7,6 +7,8 @@
 
         <import type="ru.okcode.icalc.command.Operand" />
 
+        <import type="ru.okcode.icalc.command.OperatorType"/>
+
         <variable
             name="viewModel"
             type="ru.okcode.icalc.CalcViewModel" />
@@ -29,7 +31,7 @@
             app:autoSizeTextType="uniform"
             app:autoSizeMaxTextSize="80sp"
             app:autoSizeMinTextSize="18sp"
-            android:text="@{viewModel.displayValue}"
+            android:text="@{viewModel.display}"
             android:textAlignment="gravity"
             android:textColor="@color/colorWhite"
             android:textSize="80sp"
@@ -52,8 +54,8 @@
             <Button
                 android:id="@+id/btn_AC"
                 style="@style/button.superGray"
-                android:onClick='@{() -> viewModel.onClickOperand(Operand.CLEAR_AC)}'
-                android:text="@string/operation_AC_C"
+                android:onClick='@{() -> viewModel.onClickClear()}'
+                android:text='@{viewModel.isClearAll() ? "AC" : "C"}'
                 app:layout_constraintEnd_toStartOf="@+id/btn_trigger_plus_minus"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +75,7 @@
             <Button
                 android:id="@+id/btn_percent"
                 style="@style/button.superGray"
-                android:onClick='@{() -> viewModel.onClickOperator("percent")}'
+                android:onClick='@{() -> viewModel.onClickOperator(OperatorType.PERCENT)}'
                 android:text="@string/operation_percent"
                 android:textSize="@dimen/operation_label_size"
                 app:layout_constraintEnd_toStartOf="@+id/btn_division"
@@ -84,7 +86,7 @@
             <Button
                 android:id="@+id/btn_division"
                 style="@style/button.orange"
-                android:onClick='@{() -> viewModel.onClickOperator("division")}'
+                android:onClick='@{() -> viewModel.onClickOperator(OperatorType.DIVISION)}'
                 android:text="@string/operation_division"
                 android:textSize="@dimen/operation_label_size"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -126,7 +128,7 @@
             <Button
                 android:id="@+id/btn_multiplication"
                 style="@style/button.orange"
-                android:onClick='@{() -> viewModel.onClickOperator("multiplication")}'
+                android:onClick='@{() -> viewModel.onClickOperator(OperatorType.MULTIPLICATION)}'
                 android:text="@string/operation_multiplication"
                 android:textSize="@dimen/operation_label_size"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -168,7 +170,7 @@
             <Button
                 android:id="@+id/btn_minus"
                 style="@style/button.orange"
-                android:onClick='@{() -> viewModel.onClickOperator("minus")}'
+                android:onClick='@{() -> viewModel.onClickOperator(OperatorType.MINUS)}'
                 android:text="@string/operation_minus"
                 android:textSize="@dimen/operation_label_size"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -210,7 +212,7 @@
             <Button
                 android:id="@+id/btn_plus"
                 style="@style/button.orange"
-                android:onClick='@{() -> viewModel.onClickOperator("plus")}'
+                android:onClick='@{() -> viewModel.onClickOperator(OperatorType.PLUS)}'
                 android:text="@string/operation_plus"
                 android:textSize="@dimen/operation_label_size"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -252,7 +254,7 @@
             <Button
                 android:id="@+id/btn_equally"
                 style="@style/button.orange"
-                android:onClick='@{() -> viewModel.onClickOperator("equally")}'
+                android:onClick='@{() -> viewModel.onClickEqually()}'
                 android:text="@string/operation_equally"
                 android:textSize="@dimen/operation_label_size"
                 app:layout_constraintEnd_toEndOf="parent"

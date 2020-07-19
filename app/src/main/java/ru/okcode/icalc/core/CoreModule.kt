@@ -9,10 +9,9 @@ abstract class CoreModule {
 
     @Binds
     @Singleton
-    abstract fun calcProcessor(processor: CalcProcessorImpl): CalcProcessor
+    abstract fun bindCalcProcessor(processor: CalcProcessorImpl): CalcProcessor
 
     @Binds
     @Singleton
-    abstract fun display(display: DisplayImpl): Display
-
+    abstract fun bindTextProcessor(processor: TextProcessorImpl): TextProcessor
 }
