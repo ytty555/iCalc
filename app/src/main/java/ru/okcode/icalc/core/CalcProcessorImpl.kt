@@ -77,7 +77,9 @@ class CalcProcessorImpl @Inject constructor(
 
     private fun rollback() {
         numbersStack = backupNumberStack
-        operatorsStack.pop()
+        if (operatorsStack.isNotEmpty()) {
+            operatorsStack.pop()
+        }
     }
 
     private fun calculateAllOperatorsFromStack() {
@@ -152,6 +154,9 @@ class CalcProcessorImpl @Inject constructor(
         } else {
             calculateAllOperatorsFromStack()
         }
+
+        numbersStack.clear()
+        operatorsStack.clear()
 
         nextOperator = null
     }
