@@ -1,6 +1,5 @@
 package ru.okcode.icalc
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
@@ -14,10 +13,6 @@ import ru.okcode.icalc.core.CoreFactory
 import ru.okcode.icalc.core.DaggerCoreFactory
 
 class CalcViewModel : ViewModel() {
-    init {
-        Log.e("qq", "CalcViewModel created")
-    }
-
     private val coreFactory: CoreFactory = DaggerCoreFactory.create()
     private val calcProcessor: CalcProcessor = coreFactory.processor()
 
