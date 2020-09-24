@@ -1,6 +1,7 @@
 package ru.okcode.icalc.command.operator
 
 import ru.okcode.icalc.command.Operator
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class Division @Inject constructor() : Operator {
@@ -11,11 +12,11 @@ class Division @Inject constructor() : Operator {
         return rang
     }
 
-    override fun calc(vararg args: Double): Double {
+    override fun calc(vararg args: BigDecimal): BigDecimal {
         val a = args[0]
         val b = args[1]
 
-        if (b == 0.0) {
+        if (b == BigDecimal.valueOf(0.0)) {
             throw ArithmeticException("Division by zero error")
         }
 

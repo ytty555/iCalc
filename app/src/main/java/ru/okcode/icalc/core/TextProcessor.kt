@@ -1,6 +1,7 @@
 package ru.okcode.icalc.core
 
 import ru.okcode.icalc.command.Operand
+import java.math.BigDecimal
 
 interface TextProcessor {
 
@@ -8,8 +9,8 @@ interface TextProcessor {
 
     var nextNumberAsText: String
 
-    fun convertToText(number: Double): String
+    fun convertToText(number: BigDecimal): String
 
-    fun convertToNumber(numberAsText: String): Double
+    fun convertToNumber(numberAsText: String): BigDecimal
 
 }

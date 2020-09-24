@@ -6,6 +6,7 @@ import ru.okcode.icalc.command.Operand
 import ru.okcode.icalc.command.Operator
 import ru.okcode.icalc.command.operator.Percent
 import ru.okcode.icalc.utils.ZERO
+import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 
@@ -14,8 +15,8 @@ class CalcProcessorImpl @Inject constructor(
 ) : CalcProcessor {
 
 
-    private var numbersStack = Stack<Double>()
-    private var backupNumberStack = Stack<Double>()
+    private var numbersStack = Stack<BigDecimal>()
+    private var backupNumberStack = Stack<BigDecimal>()
     private val operatorsStack = Stack<Operator>()
 
     private var nextOperator: Operator? = null
@@ -71,7 +72,7 @@ class CalcProcessorImpl @Inject constructor(
 
     private fun handlePercent() {
         val nextNumber = textProcessor.convertToNumber(textProcessor.nextNumberAsText)
-        val percent = nextNumber / 100
+        val percent = nextNumber.div(BigDecimal(100))
         textProcessor.nextNumberAsText = textProcessor.convertToText(percent)
     }
 
@@ -85,17 +86,17 @@ class CalcProcessorImpl @Inject constructor(
     private fun calculateAllOperatorsFromStack() {
         backupNumberStack = numbersStack
         while (operatorsStack.isNotEmpty()) {
-            val numberB: Double
-            val numberA: Double
+            val numberB: BigDecimal
+            val numberA: BigDecimal
 
             when {
                 numbersStack.isEmpty() -> {
-                    numberB = 0.0
-                    numberA = 0.0
+                    numberB = BigDecimal.valueOf(0.0)
+                    numberA = BigDecimal.valueOf(0.0)
                 }
                 numbersStack.size == 1 -> {
                     numberB = numbersStack.pop()
-                    numberA = 0.0
+                    numberA = BigDecimal.valueOf(0.0)
                 }
                 else -> {
                     numberB = numbersStack.pop()
@@ -118,8 +119,8 @@ class CalcProcessorImpl @Inject constructor(
     }
 
     private fun handleNextNumber(nextNumberAsText: String?) {
-        val nextNumber: Double = if (nextNumberAsText == null) {
-            0.0
+        val nextNumber: BigDecimal = if (nextNumberAsText == null) {
+            BigDecimal.valueOf(0.0)
         } else {
             convertToNumber(nextNumberAsText)
         }
@@ -128,7 +129,7 @@ class CalcProcessorImpl @Inject constructor(
         textProcessor.nextNumberAsText = ZERO
     }
 
-    private fun convertToNumber(numberAsText: String): Double {
+    private fun convertToNumber(numberAsText: String): BigDecimal {
         return textProcessor.convertToNumber(numberAsText)
     }
 

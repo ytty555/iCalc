@@ -2,6 +2,7 @@ package ru.okcode.icalc.core
 
 import ru.okcode.icalc.command.Operand
 import ru.okcode.icalc.utils.*
+import java.math.BigDecimal
 import javax.inject.Inject
 
 class TextProcessorImpl @Inject constructor() : TextProcessor {
@@ -12,9 +13,9 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
     override var nextNumberAsText: String = ZERO
 
     /**
-     * Convert Double to String
+     * Convert BigDecimal to String
      */
-    override fun convertToText(number: Double): String {
+    override fun convertToText(number: BigDecimal): String {
         var numberAsString = number.toString().replace(POINT, COMMA)
         if (numberAsString.endsWith(",0")) {
             val indexComma = numberAsString.indexOf(COMMA)
@@ -24,12 +25,12 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
     }
 
     /**
-     * Convert String to Double
+     * Convert String to BigDecimal
      */
-    override fun convertToNumber(numberAsText: String): Double {
+    override fun convertToNumber(numberAsText: String): BigDecimal {
         return numberAsText
             .normalizeForNumberCreator()
-            .toDouble()
+            .toBigDecimal()
     }
 
     /**
