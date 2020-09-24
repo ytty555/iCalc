@@ -1,3 +1,5 @@
 /build
 # Ignore .idea files
 .idea/
+.keys/
+.release/
