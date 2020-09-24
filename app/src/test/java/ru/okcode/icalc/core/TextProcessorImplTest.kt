@@ -70,7 +70,7 @@ class TextProcessorImplTest(
     }
 
     @Test
-    fun generateText() {
+    fun convertToTextTest() {
 //        textProcessor.setNextNumberAsText(start)
 //        textProcessor.createText(operand)
 //        val textActual = textProcessor.nextNumberAsText.value

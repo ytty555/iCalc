@@ -2,6 +2,7 @@ package ru.okcode.icalc.command.operator
 
 import ru.okcode.icalc.command.Operator
 import java.math.BigDecimal
+import java.math.RoundingMode
 import javax.inject.Inject
 
 class Division @Inject constructor() : Operator {
@@ -20,7 +21,9 @@ class Division @Inject constructor() : Operator {
             throw ArithmeticException("Division by zero error")
         }
 
-        return a.div(b)
+        val result = a.divide(b, 8, RoundingMode.HALF_UP)
+
+        return result
     }
 
 }
