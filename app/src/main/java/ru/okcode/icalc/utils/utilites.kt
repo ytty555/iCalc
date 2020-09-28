@@ -1,5 +1,7 @@
 package ru.okcode.icalc.utils
 
+import java.util.regex.Pattern
+
 const val ZERO = "0"
 const val COMMA = ','
 const val POINT = '.'
@@ -52,9 +54,18 @@ fun String.normalizeForNumberCreator(): String {
         result = result.replace(COMMA, POINT)
     }
 
-    if (!result[result.lastIndex].isDigit()) {
-        return result.substring(0, result.lastIndex)
+    val pattern: Pattern = Pattern.compile(".+[.][1-9]*[0]+$")
+    val matcher = pattern.matcher(result)
+
+    if (matcher.matches()) {
+        while (result.endsWith("0") && !result.endsWith(".0")) {
+            result = result.substring(0, result.lastIndex)
+        }
+    }
+
+    return if (!result[result.lastIndex].isDigit()) {
+        result.substring(0, result.lastIndex)
     } else {
-        return result
+        result
     }
 }
