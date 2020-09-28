@@ -3,7 +3,6 @@ package ru.okcode.icalc.core
 import ru.okcode.icalc.command.Operand
 import ru.okcode.icalc.utils.*
 import java.math.BigDecimal
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 import javax.inject.Inject
 
@@ -19,11 +18,14 @@ class TextProcessorImpl @Inject constructor() : TextProcessor {
      */
     override fun convertToText(number: BigDecimal): String {
         var numberAsString = number.toString().replace(POINT, COMMA)
-//        if (numberAsString.endsWith(",0")) {
+
         val pattern: Pattern = Pattern.compile(".+[,][1-9]*[0]+$")
         val matcher = pattern.matcher(numberAsString)
+
         if (matcher.matches()) {
-            while (numberAsString.endsWith("0") || numberAsString.endsWith(",")) {
+            while ((numberAsString.endsWith("0") && numberAsString.length > 1)
+                || numberAsString.endsWith(",")
+            ) {
                 numberAsString = numberAsString.substring(0, numberAsString.lastIndex)
             }
         }

@@ -1,9 +1,11 @@
 package ru.okcode.icalc.core
 
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import ru.okcode.icalc.command.Operand
+import java.math.BigDecimal
 
 @RunWith(Parameterized::class)
 class TextProcessorImplTest(
@@ -70,11 +72,61 @@ class TextProcessorImplTest(
     }
 
     @Test
-    fun convertToTextTest() {
-//        textProcessor.setNextNumberAsText(start)
-//        textProcessor.createText(operand)
-//        val textActual = textProcessor.nextNumberAsText.value
-//        val textExpected: String = expected
-//        assertEquals(textExpected, textActual)
+    fun createNextNumberAsTextTest() {
+        textProcessor.nextNumberAsText = start
+        textProcessor.createNextNumberAsText(operand)
+        val textActual = textProcessor.nextNumberAsText
+        val textExpected: String = expected
+        assertEquals(textExpected, textActual)
+    }
+
+    @Test
+    fun convertToTextTest01() {
+        val number: BigDecimal = BigDecimal.valueOf(2.0000000)
+
+        val actual = textProcessor.convertToText(number)
+        val expected = "2"
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun convertToTextTest02() {
+        val number: BigDecimal = BigDecimal.valueOf(2.2500000)
+
+        val actual = textProcessor.convertToText(number)
+        val expected = "2,25"
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun convertToTextTest03() {
+        val number: BigDecimal = BigDecimal.valueOf(2.2500001)
+
+        val actual = textProcessor.convertToText(number)
+        val expected = "2,2500001"
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun convertToTextTest04() {
+        val number: BigDecimal = BigDecimal.valueOf(0.2500001)
+
+        val actual = textProcessor.convertToText(number)
+        val expected = "0,2500001"
+
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun convertToTextTest05() {
+        val number: BigDecimal = BigDecimal.valueOf(0.0)
+
+        val actual = textProcessor.convertToText(number)
+        val expected = "0"
+
+        assertEquals(expected, actual)
     }
 }
